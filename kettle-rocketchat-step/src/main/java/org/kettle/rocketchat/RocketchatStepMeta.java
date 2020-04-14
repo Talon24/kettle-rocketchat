@@ -189,7 +189,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 //            v.setOrigin( origin );
 //            r.addValueMeta( v );
 //        }
-    	ValueMetaAndData status = new ValueMetaAndData(new ValueMetaString(), null);
+    	ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
     	status.getValueMeta().setName("status");
 		ValueMetaInterface v = status.getValueMeta();
 		v.setOrigin( origin );

@@ -26,7 +26,7 @@ public class RocketchatClient {
 	
 	public RocketchatClient(String url, String user, String password) {
 		if (!url.endsWith("/")) {url = url + "/";}
-		url = url + "/api/v1/";
+		if (!url.endsWith("api/v1/")) {url = url + "api/v1/";}
 		this.url = url;
 		this.user = user;
 		this.password = password;

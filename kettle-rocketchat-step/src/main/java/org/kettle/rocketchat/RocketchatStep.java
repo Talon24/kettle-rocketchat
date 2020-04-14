@@ -69,8 +69,8 @@ public class RocketchatStep extends BaseStep implements StepInterface {
         	success = meta.sendRocketchat(channel, message);
         }
         
-        Object extraValue = new ValueMetaAndData(new ValueMetaBoolean("sent_success"), success);
-        Object[] outputRow = RowDataUtil.addValueData( r, data.outputRowMeta.indexOfValue("status"), extraValue );
+        ValueMetaAndData extraValue = new ValueMetaAndData(new ValueMetaBoolean("status"), success);
+        Object[] outputRow = RowDataUtil.addValueData( r, data.outputRowMeta.indexOfValue("status"), extraValue.getValueData() );
 
         putRow( data.outputRowMeta, outputRow );     // copy row to possible alternate rowset(s).
 
