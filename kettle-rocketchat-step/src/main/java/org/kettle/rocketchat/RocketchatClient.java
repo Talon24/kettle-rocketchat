@@ -14,8 +14,6 @@ import org.json.JSONArray;
 //import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
-
 public class RocketchatClient {
     private String charset = java.nio.charset.StandardCharsets.UTF_8.name();
     private String url;
