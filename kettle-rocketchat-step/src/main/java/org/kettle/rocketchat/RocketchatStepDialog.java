@@ -366,7 +366,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
           } );
         
         wlEmojiField = new Label (shell, SWT.RIGHT);
-        wlEmojiField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.ChannelField.Label"));
+        wlEmojiField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.EmojiField.Label"));
         props.setLook(wlEmojiField);
         fdlEmojiField = new FormData();
         fdlEmojiField.left = new FormAttachment( 0, 0 );
