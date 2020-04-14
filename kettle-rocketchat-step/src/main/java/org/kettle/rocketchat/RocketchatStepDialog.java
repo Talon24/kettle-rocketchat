@@ -616,7 +616,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private void setStreamFields() {
 	    if ( !gotPreviousFields ) {
 	      String channelfield = wChannelField.getText();
-	      String messagefield= wEmojiField.getText();
+	      String messagefield = wMessageField.getText();
 	      String aliasfield = wAliasField.getText();
 	      String emojifield = wEmojiField.getText();
 
