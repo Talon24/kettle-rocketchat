@@ -28,8 +28,9 @@ import java.net.MalformedURLException;
  */
 
 @Step( id = "RocketChatSender",
-        image = "ui/images/rocket.svg",
-//        image = "plugins/",        
+//		image = "rocket.svg",
+//        image = "ui/images/rocket.svg",
+        image = "plugins/rocketchat-plugin/rocket.svg",        
         i18nPackageName = "be.ibridge.kettle.rocket.chat",
         name = "RocketChat.Step.Name",
         description = "RocketChat.Step.Description",
