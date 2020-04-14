@@ -52,7 +52,11 @@ public class RocketchatClient {
 		HashMap<String, String> payload = new HashMap<String, String>();
 		payload.put("text", content);
 		payload.put("alias", alias);
-		payload.put("emoji", emoji);
+		if (emoji.startsWith(":") && emoji.endsWith(":")) {
+			payload.put("emoji", emoji);
+		} else {
+			payload.put("avatar", emoji);
+		}
 //		System.out.println("Contacts:" );
 //		System.out.println(contacts.toString());
 		if (receiver.startsWith("#")) {
