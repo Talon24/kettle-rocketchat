@@ -23,8 +23,8 @@ public class RocketchatClient {
     private Map<String, String> contacts = new HashMap<>();
 
     public RocketchatClient(String url, String user, String password) throws IOException {
-        if (!url.endsWith("/")) {url = url + "/";}
-        if (!url.endsWith("api/v1/")) {url = url + "api/v1/";}
+        if (!url.endsWith("/")) url = url + "/";
+        if (!url.endsWith("api/v1/")) url = url + "api/v1/";
         this.url = url;
         this.user = user;
         this.password = password;
@@ -46,7 +46,8 @@ public class RocketchatClient {
         return post_message(payload);
     }
 
-    public JSONObject send_message(String receiver, String content, String alias, String emoji) throws MalformedURLException, IOException {
+    public JSONObject send_message(String receiver, String content, String alias, String emoji)
+            throws MalformedURLException, IOException {
         HashMap<String, String> payload = new HashMap<String, String>();
         payload.put("text", content);
         payload.put("alias", alias);
@@ -59,8 +60,7 @@ public class RocketchatClient {
 //        System.out.println(contacts.toString());
         if (receiver.startsWith("#")) {
             payload.put("channel", receiver);
-        }
-        else {
+        } else {
             if (!contacts.containsKey(receiver)) {
                 create_im(receiver);
             }
@@ -103,7 +103,7 @@ public class RocketchatClient {
     private void load_contacts() throws MalformedURLException, IOException {
 
         JSONObject channels = get("im.list");
-        for (Object im: channels.getJSONArray("ims")) {
+        for (Object im : channels.getJSONArray("ims")) {
             JSONObject obj = (JSONObject) im;
             JSONArray names = obj.getJSONArray("usernames");
             String name = null;
@@ -138,7 +138,6 @@ public class RocketchatClient {
         connection.setRequestProperty("X-User-Id", headers.get("X-User-Id"));
         connection.setRequestProperty("Accept-Charset", charset);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-
 
 //            READ ANSWER
         InputStream response = connection.getInputStream();
@@ -178,13 +177,12 @@ public class RocketchatClient {
 //        }
         connection.setDoOutput(true); // Triggers POST.
         String payload_string = new JSONObject(payload).toString();
-        try(OutputStream os = connection.getOutputStream()) {
+        try (OutputStream os = connection.getOutputStream()) {
             byte[] input = payload_string.getBytes("utf-8");
             os.write(input, 0, input.length);
             os.flush();
             os.close();
         }
-
 
         InputStream response = connection.getInputStream();
         try (Scanner scanner = new Scanner(response)) {

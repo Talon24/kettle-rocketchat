@@ -16,17 +16,17 @@ public class RocketchatStep extends BaseStep implements StepInterface {
     private RocketchatStepData data;
     private RocketchatStepMeta meta;
 
-    public RocketchatStep(StepMeta s, StepDataInterface stepDataInterface, int c, TransMeta t, Trans dis ) {
-        super( s, stepDataInterface, c, t, dis );
+    public RocketchatStep(StepMeta s, StepDataInterface stepDataInterface, int c, TransMeta t, Trans dis) {
+        super(s, stepDataInterface, c, t, dis);
     }
 
     @Override
-    public boolean processRow( StepMetaInterface smi, StepDataInterface sdi ) throws KettleException {
+    public boolean processRow(StepMetaInterface smi, StepDataInterface sdi) throws KettleException {
         meta = (RocketchatStepMeta) smi;
         data = (RocketchatStepData) sdi;
 
-        Object[] r = getRow();    // get row, blocks when needed!
-        if ( r == null ) { // no more input to be expected...
+        Object[] r = getRow(); // get row, blocks when needed!
+        if (r == null) { // no more input to be expected...
             setOutputDone();
             return false;
         }
@@ -39,7 +39,7 @@ public class RocketchatStep extends BaseStep implements StepInterface {
 //        }
 //        logBasic("Foreach loop:      Finished");
 
-        if ( first ) {
+        if (first) {
             first = false;
             data.outputRowMeta = getInputRowMeta().clone();
 //            logBasic("RowInputMeta: " +  data.outputRowMeta.toStringMeta());
@@ -51,7 +51,6 @@ public class RocketchatStep extends BaseStep implements StepInterface {
 //            logBasic("RowOutputMeta: " + str);
 //        }
 
-
 //        Object extraValue = meta.getUrlValue().getValueData();
 //        logError(meta.getChannelField().toString());
 //        logError(meta.getMessageField().toString());
@@ -59,8 +58,8 @@ public class RocketchatStep extends BaseStep implements StepInterface {
 //        logError(meta.getEmojiField().toString());
         String channel = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getChannelField().toString())], "");
         String message = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getMessageField().toString())], "");
-        String alias =   Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
-        String emoji =   Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getEmojiField().toString())], "");
+        String alias = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
+        String emoji = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getEmojiField().toString())], "");
 
         boolean success;
         if ((boolean) meta.getAdvanced().getValueData()) {
@@ -70,12 +69,13 @@ public class RocketchatStep extends BaseStep implements StepInterface {
         }
 
         ValueMetaAndData extraValue = new ValueMetaAndData(new ValueMetaBoolean("status"), success);
-        Object[] outputRow = RowDataUtil.addValueData( r, data.outputRowMeta.indexOfValue("status"), extraValue.getValueData() );
+        Object[] outputRow = RowDataUtil.addValueData(r, data.outputRowMeta.indexOfValue("status"),
+                extraValue.getValueData());
 
-        putRow( data.outputRowMeta, outputRow );     // copy row to possible alternate rowset(s).
+        putRow(data.outputRowMeta, outputRow); // copy row to possible alternate rowset(s).
 
-        if ( checkFeedback( getLinesRead() ) ) {
-            logBasic( "Linenr " + getLinesRead() );  // Some basic logging every 5000 rows.
+        if (checkFeedback(getLinesRead())) {
+            logBasic("Linenr " + getLinesRead()); // Some basic logging every 5000 rows.
         }
 
         return true;
@@ -89,7 +89,7 @@ public class RocketchatStep extends BaseStep implements StepInterface {
     }
 
     @Override
-    public boolean init(StepMetaInterface smi, StepDataInterface sdi ) {
+    public boolean init(StepMetaInterface smi, StepDataInterface sdi) {
         meta = (RocketchatStepMeta) smi;
         data = (RocketchatStepData) sdi;
 
@@ -108,33 +108,33 @@ public class RocketchatStep extends BaseStep implements StepInterface {
             return false;
         }
 
-        return super.init( smi, sdi );
+        return super.init(smi, sdi);
     }
 
     @Override
-    public void dispose( StepMetaInterface smi, StepDataInterface sdi ) {
+    public void dispose(StepMetaInterface smi, StepDataInterface sdi) {
         meta = (RocketchatStepMeta) smi;
         data = (RocketchatStepData) sdi;
 
-        super.dispose( smi, sdi );
+        super.dispose(smi, sdi);
     }
 
     //
     // Run is were the action happens!
     public void run() {
-        logBasic( "Starting to run..." );
+        logBasic("Starting to run...");
         try {
-            while ( processRow( meta, data ) && !isStopped() ) {
+            while (processRow(meta, data) && !isStopped()) {
                 // Process rows
             }
-        } catch ( Exception e ) {
-            logError( "Unexpected error : " + e.toString() );
-            logError( Const.getStackTracker( e ) );
-            setErrors( 1 );
+        } catch (Exception e) {
+            logError("Unexpected error : " + e.toString());
+            logError(Const.getStackTracker(e));
+            setErrors(1);
             stopAll();
         } finally {
-            dispose( meta, data );
-            logBasic( "Finished, processing " + getLinesRead() + " rows" );
+            dispose(meta, data);
+            logBasic("Finished, processing " + getLinesRead() + " rows");
             markStop();
         }
     }
