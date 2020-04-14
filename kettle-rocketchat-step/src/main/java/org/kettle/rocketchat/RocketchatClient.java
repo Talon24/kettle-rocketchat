@@ -24,7 +24,7 @@ public class RocketchatClient {
 	private Map<String, String> headers = new HashMap<>();
 	private Map<String, String> contacts = new HashMap<>();
 	
-	public RocketchatClient(String url, String user, String password) {
+	public RocketchatClient(String url, String user, String password) throws IOException {
 		if (!url.endsWith("/")) {url = url + "/";}
 		if (!url.endsWith("api/v1/")) {url = url + "api/v1/";}
 		this.url = url;
@@ -37,6 +37,7 @@ public class RocketchatClient {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -85,8 +86,6 @@ public class RocketchatClient {
 	}
 	
 	private void login() throws MalformedURLException, IOException {
-
-		
 		Map<String, String> payload = new HashMap<String, String>();
 		payload.put("user", user);
 		payload.put("password", password);
