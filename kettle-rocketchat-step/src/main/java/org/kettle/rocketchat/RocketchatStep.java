@@ -30,13 +30,13 @@ public class RocketchatStep extends BaseStep implements StepInterface {
             setOutputDone();
             return false;
         }
-        
+
 //        for (Object object : r) {
-//        	if (object != null) {
-//        		logBasic("Foreach loop: " + object.toString());
-//        		logBasic("Foreach loop: " + object.getClass().getName());
-//        	}
-//		}
+//            if (object != null) {
+//                logBasic("Foreach loop: " + object.toString());
+//                logBasic("Foreach loop: " + object.getClass().getName());
+//            }
+//        }
 //        logBasic("Foreach loop:      Finished");
 
         if ( first ) {
@@ -46,11 +46,11 @@ public class RocketchatStep extends BaseStep implements StepInterface {
 //            meta.getFields( data.outputRowMeta, getStepname(), null, null, this );
             meta.getFields(data.outputRowMeta, getStepname(), null, null, this, repository, metaStore);
         }
-        
+
 //        for (String str : data.outputRowMeta.getFieldNames()) {
-//        	logBasic("RowOutputMeta: " + str);
-//		}
-        
+//            logBasic("RowOutputMeta: " + str);
+//        }
+
 
 //        Object extraValue = meta.getUrlValue().getValueData();
 //        logError(meta.getChannelField().toString());
@@ -61,14 +61,14 @@ public class RocketchatStep extends BaseStep implements StepInterface {
         String message = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getMessageField().toString())], "");
         String alias =   Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
         String emoji =   Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getEmojiField().toString())], "");
-        
+
         boolean success;
         if ((boolean) meta.getAdvanced().getValueData()) {
-        	success = meta.sendRocketchat(channel, message, alias, emoji);
+            success = meta.sendRocketchat(channel, message, alias, emoji);
         } else {
-        	success = meta.sendRocketchat(channel, message);
+            success = meta.sendRocketchat(channel, message);
         }
-        
+
         ValueMetaAndData extraValue = new ValueMetaAndData(new ValueMetaBoolean("status"), success);
         Object[] outputRow = RowDataUtil.addValueData( r, data.outputRowMeta.indexOfValue("status"), extraValue.getValueData() );
 
@@ -80,33 +80,33 @@ public class RocketchatStep extends BaseStep implements StepInterface {
 
         return true;
     }
-    
+
     public Object find_field(Object[] array, String column_name) {
-    	for (Object cell : array) {
-			logBasic(cell.toString());
-		}
-    	return null;
+        for (Object cell : array) {
+            logBasic(cell.toString());
+        }
+        return null;
     }
 
     @Override
     public boolean init(StepMetaInterface smi, StepDataInterface sdi ) {
         meta = (RocketchatStepMeta) smi;
         data = (RocketchatStepData) sdi;
-        
+
         String url = environmentSubstitute(meta.getUrl().toString());
         String user = environmentSubstitute(meta.getUser().toString());
         String password = environmentSubstitute(meta.getPassword().toString());
         try {
-			meta.startRocketchat(url, user, password);
-		} catch (IOException e) {
-//			StringWriter sw = new StringWriter();
+            meta.startRocketchat(url, user, password);
+        } catch (IOException e) {
+//            StringWriter sw = new StringWriter();
 //            e.printStackTrace(new PrintWriter(sw));
 //            String exceptionAsString = sw.toString();
 //            logError(exceptionAsString);
-			logError("RocketChat Connection init failed. Bad RocketChat login information!");
-//			logError("Bad RocketChat cretentials: " +  url + ", " + user  + ", " +  password);
-			return false;
-		}
+            logError("RocketChat Connection init failed. Bad RocketChat login information!");
+//            logError("Bad RocketChat cretentials: " +  url + ", " + user  + ", " +  password);
+            return false;
+        }
 
         return super.init( smi, sdi );
     }

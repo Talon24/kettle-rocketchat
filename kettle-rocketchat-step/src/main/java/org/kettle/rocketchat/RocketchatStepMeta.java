@@ -28,9 +28,9 @@ import java.net.MalformedURLException;
  */
 
 @Step( id = "RocketChatSender",
-//		image = "rocket.svg",
+//        image = "rocket.svg",
 //        image = "ui/images/rocket.svg",
-        image = "plugins/rocketchat-plugin/rocket.svg",        
+        image = "plugins/rocketchat-plugin/rocket.svg",
         i18nPackageName = "be.ibridge.kettle.rocket.chat",
         name = "RocketChat.Step.Name",
         description = "RocketChat.Step.Description",
@@ -65,87 +65,87 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     public void setUrl( ValueMetaAndData url ) {
         this.url = url;
     }
-    
+
     public ValueMetaAndData getUser() {
-		return user;
-	}
-
-	public void setUser(ValueMetaAndData user) {
-		this.user = user;
-	}
-
-	public ValueMetaAndData getPassword() {
-		return password;
-	}
-
-	public void setPassword(ValueMetaAndData password) {
-		this.password = password;
-	}
-
-	public ValueMetaAndData getChannelField() {
-		return channelField;
-	}
-
-	public void setChannelField(ValueMetaAndData channelField) {
-		this.channelField = channelField;
-	}
-
-	public ValueMetaAndData getMessageField() {
-		return messageField;
-	}
-
-	public void setMessageField(ValueMetaAndData messageField) {
-		this.messageField = messageField;
-	}
-
-	public ValueMetaAndData getAdvanced() {
-		return advanced;
-	}
-
-	public void setAdvanced(ValueMetaAndData advanced) {
-		this.advanced = advanced;
-	}
-
-	public ValueMetaAndData getAliasField() {
-		return aliasField;
-	}
-
-	public void setAliasField(ValueMetaAndData aliasField) {
-		this.aliasField = aliasField;
-	}
-
-	public ValueMetaAndData getEmojiField() {
-		return emojiField;
-	}
-
-	public void setEmojiField(ValueMetaAndData emojiField) {
-		this.emojiField = emojiField;
-	}
-
-	public void startRocketchat(String url, String user, String password) throws IOException {
-		rocketchat = new RocketchatClient(url, user, password);
+        return user;
     }
-    
+
+    public void setUser(ValueMetaAndData user) {
+        this.user = user;
+    }
+
+    public ValueMetaAndData getPassword() {
+        return password;
+    }
+
+    public void setPassword(ValueMetaAndData password) {
+        this.password = password;
+    }
+
+    public ValueMetaAndData getChannelField() {
+        return channelField;
+    }
+
+    public void setChannelField(ValueMetaAndData channelField) {
+        this.channelField = channelField;
+    }
+
+    public ValueMetaAndData getMessageField() {
+        return messageField;
+    }
+
+    public void setMessageField(ValueMetaAndData messageField) {
+        this.messageField = messageField;
+    }
+
+    public ValueMetaAndData getAdvanced() {
+        return advanced;
+    }
+
+    public void setAdvanced(ValueMetaAndData advanced) {
+        this.advanced = advanced;
+    }
+
+    public ValueMetaAndData getAliasField() {
+        return aliasField;
+    }
+
+    public void setAliasField(ValueMetaAndData aliasField) {
+        this.aliasField = aliasField;
+    }
+
+    public ValueMetaAndData getEmojiField() {
+        return emojiField;
+    }
+
+    public void setEmojiField(ValueMetaAndData emojiField) {
+        this.emojiField = emojiField;
+    }
+
+    public void startRocketchat(String url, String user, String password) throws IOException {
+        rocketchat = new RocketchatClient(url, user, password);
+    }
+
     public boolean sendRocketchat(String channel, String message) {
-    	try {
-			rocketchat.send_message(channel, message);
-			return true;
-		} catch (MalformedURLException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+        try {
+            rocketchat.send_message(channel, message);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
     }
-    
+
     public boolean sendRocketchat(String channel, String message, String alias, String emoji) {
-    	try {
-			rocketchat.send_message(channel, message, alias, emoji);
-			return true;
-		} catch (MalformedURLException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+        try {
+            rocketchat.send_message(channel, message, alias, emoji);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     @Override
@@ -190,11 +190,11 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 //            v.setOrigin( origin );
 //            r.addValueMeta( v );
 //        }
-    	ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
-    	status.getValueMeta().setName("status");
-		ValueMetaInterface v = status.getValueMeta();
-		v.setOrigin( origin );
-		r.addValueMeta( v );
+        ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
+        status.getValueMeta().setName("status");
+        ValueMetaInterface v = status.getValueMeta();
+        v.setOrigin( origin );
+        r.addValueMeta( v );
 //      }
     }
 
@@ -218,12 +218,12 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 
 //            Node val = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode( stepnode, "values"), "value", "name", "url", 0);
 //            if (val != null) {logError("search for the url tag: " + val.getTextContent());} else {logError("search for url tag failed!");}
-//            
+//
 //            Node valnode = XMLHandler.getSubNode( stepnode, "values", "value" );
             Node valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode( stepnode, "values"), "value", "name", "url", 0);
             if ( valnode != null ) {
-//            	logError("XML nodeName: " + valnode.getTextContent());
-//            	logError("XML nodeName: " + XMLHandler.getSubNode(valnode, "name").getTextContent());
+//                logError("XML nodeName: " + valnode.getTextContent());
+//                logError("XML nodeName: " + XMLHandler.getSubNode(valnode, "name").getTextContent());
                 System.out.println( "reading value in " + valnode );
                 url.loadXML( valnode );
             }
@@ -280,21 +280,21 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 //        urlValue = new ValueMetaAndData( new ValueMetaNumber( "valuename" ), new Double( 123.456 ) );
 //        urlValue.getValueMeta().setLength( 12 );
 //        urlValue.getValueMeta().setPrecision( 4 );
-    	url = new ValueMetaAndData(new ValueMetaString(), "https://rocket.chat");
-    	user = new ValueMetaAndData(new ValueMetaString(), "user");
-    	password = new ValueMetaAndData(new ValueMetaString(), "password");
-    	channelField = new ValueMetaAndData(new ValueMetaString(), "channelField");
-    	messageField = new ValueMetaAndData(new ValueMetaString(), "Message Field");
-    	aliasField = new ValueMetaAndData(new ValueMetaString(), "Alias Field");
-    	emojiField = new ValueMetaAndData(new ValueMetaString(), "Emoji Field");
-    	url.getValueMeta().setName("url");
-    	user.getValueMeta().setName("user");
-    	password.getValueMeta().setName("password");
-    	channelField.getValueMeta().setName("channelField");
-    	messageField.getValueMeta().setName("messageField");
-    	advanced.getValueMeta().setName("advanced");
-    	aliasField.getValueMeta().setName("aliasField");
-    	emojiField.getValueMeta().setName("emojiField");
+        url = new ValueMetaAndData(new ValueMetaString(), "https://rocket.chat");
+        user = new ValueMetaAndData(new ValueMetaString(), "user");
+        password = new ValueMetaAndData(new ValueMetaString(), "password");
+        channelField = new ValueMetaAndData(new ValueMetaString(), "channelField");
+        messageField = new ValueMetaAndData(new ValueMetaString(), "Message Field");
+        aliasField = new ValueMetaAndData(new ValueMetaString(), "Alias Field");
+        emojiField = new ValueMetaAndData(new ValueMetaString(), "Emoji Field");
+        url.getValueMeta().setName("url");
+        user.getValueMeta().setName("user");
+        password.getValueMeta().setName("password");
+        channelField.getValueMeta().setName("channelField");
+        messageField.getValueMeta().setName("messageField");
+        advanced.getValueMeta().setName("advanced");
+        aliasField.getValueMeta().setName("aliasField");
+        emojiField.getValueMeta().setName("emojiField");
     }
 
     @Override

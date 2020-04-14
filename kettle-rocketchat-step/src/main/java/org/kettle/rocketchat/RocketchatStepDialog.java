@@ -53,7 +53,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private Label wlUrl;
     private Text wUrl;
     private FormData fdlUrl, fdUrl;
-    
+
     private Text wUser;
     private FormData fdluser, fdUser;
     private Label wlUser;
@@ -61,33 +61,33 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private Label wlPassword;
     private Text wPassword;
     private FormData fdlPassword, fdPassword;
-    
+
     private Label wlChannelField;
     private ComboVar wChannelField;
     private FormData fdlChannelField, fdChannelField;
-    
+
     private Label wlMessageField;
     private ComboVar wMessageField;
     private FormData fdlMessageField, fdMessageField;
-    
+
     private Label wlAdvanced;
     private Button wAdvanced;
     private FormData fdlAdvanced, fdAdvanced;
-    
+
     private Label wlAliasField;
     private ComboVar wAliasField;
     private FormData fdlAliasField, fdAliasField;
-    
+
     private Label wlEmojiField;
     private ComboVar wEmojiField;
     private FormData fdlEmojiField, fdEmojiField;
-    
+
     private boolean gotPreviousFields = false;
     private String[] fieldNames;
     private Map<String, Integer> inputFields;
     private ColumnInfo[] colinf, colinfoparams;
 
-    
+
 //    private Label wlValName;
 //    private Text wValName;
 //    private FormData fdlValName, fdValName;
@@ -96,7 +96,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
 //    private Button wbValue;
 //    private Text wValue;
 //    private FormData fdlValue, fdbValue, fdValue;
-    
+
     private static Class<?> PKG = RocketchatStepMeta.class; // for i18n purposes
 
 
@@ -134,7 +134,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         FormLayout formLayout = new FormLayout();
         formLayout.marginWidth  = Const.FORM_MARGIN;
         formLayout.marginHeight = Const.FORM_MARGIN;
-        
+
 //        logError("DialogStep: " + BaseMessages.getString(PKG, "RocketChatPluginDialog.ValueName.Label"));
 
         shell.setLayout( formLayout );
@@ -161,8 +161,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdStepname.top = new FormAttachment( 0, margin );
         fdStepname.right = new FormAttachment( 100, 0 );
         wStepname.setLayoutData( fdStepname );
-        
-        
+
+
         // URL Line
         wlUrl = new Label( shell, SWT.RIGHT );
         wlUrl.setText( BaseMessages.getString(PKG, "RocketChatPluginDialog.url.Label" ) ); //$NON-NLS-1$
@@ -217,7 +217,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
       fdPassword.right = new FormAttachment( 100, 0 );
       fdPassword.top  = new FormAttachment( wUser, margin );
       wPassword.setLayoutData( fdPassword );
-      
+
       wlChannelField = new Label (shell, SWT.RIGHT);
       wlChannelField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.ChannelField.Label"));
       props.setLook(wlChannelField);
@@ -234,7 +234,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
       fdChannelField.right = new FormAttachment( 100, 0 );
       fdChannelField.top  = new FormAttachment( wPassword, margin );
       wChannelField.setLayoutData( fdChannelField );
-      
+
       wChannelField.addFocusListener( new FocusListener() {
           public void focusLost( org.eclipse.swt.events.FocusEvent e ) {
           }
@@ -247,7 +247,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
             busy.dispose();
           }
         } );
-      
+
       final Runnable runnable = new Runnable() {
           public void run() {
             StepMeta stepMeta = transMeta.findStep( stepname );
@@ -269,16 +269,16 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         };
         new Thread( runnable ).start();
         colinf =
-	      new ColumnInfo[] {
-	        new ColumnInfo(
-	          BaseMessages.getString( PKG, "RestDialog.ColumnInfo.Field" ), ColumnInfo.COLUMN_TYPE_CCOMBO,
-	          new String[] { "" }, false ),
-	        new ColumnInfo(
-	          BaseMessages.getString( PKG, "RestDialog.ColumnInfo.Name" ), ColumnInfo.COLUMN_TYPE_TEXT, false ) };
-        
-        
+          new ColumnInfo[] {
+            new ColumnInfo(
+              BaseMessages.getString( PKG, "RestDialog.ColumnInfo.Field" ), ColumnInfo.COLUMN_TYPE_CCOMBO,
+              new String[] { "" }, false ),
+            new ColumnInfo(
+              BaseMessages.getString( PKG, "RestDialog.ColumnInfo.Name" ), ColumnInfo.COLUMN_TYPE_TEXT, false ) };
+
+
         // Message Line
-        
+
         wlMessageField = new Label (shell, SWT.RIGHT);
         wlMessageField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.MessageField.Label"));
         props.setLook(wlMessageField);
@@ -295,7 +295,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdMessageField.right = new FormAttachment( 100, 0 );
         fdMessageField.top  = new FormAttachment( wChannelField, margin );
         wMessageField.setLayoutData( fdMessageField );
-        
+
         wMessageField.addFocusListener( new FocusListener() {
             public void focusLost( org.eclipse.swt.events.FocusEvent e ) {
             }
@@ -308,8 +308,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
               busy.dispose();
             }
           } );
-        
-        
+
+
         // Activate extended options
         wlAdvanced = new Label( shell, SWT.RIGHT );
         wlAdvanced.setText( BaseMessages.getString( PKG, "RocketChatPluginDialog.Advanced.Label" ) );
@@ -333,8 +333,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
           }
         } );
         // Extended fields
-        
-        
+
+
         wlAliasField = new Label (shell, SWT.RIGHT);
         wlAliasField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.AliasField.Label"));
         props.setLook(wlAliasField);
@@ -351,7 +351,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdAliasField.right = new FormAttachment( 100, 0 );
         fdAliasField.top  = new FormAttachment( wAdvanced, margin );
         wAliasField.setLayoutData( fdAliasField );
-        
+
         wAliasField.addFocusListener( new FocusListener() {
             public void focusLost( org.eclipse.swt.events.FocusEvent e ) {
             }
@@ -364,7 +364,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
               busy.dispose();
             }
           } );
-        
+
         wlEmojiField = new Label (shell, SWT.RIGHT);
         wlEmojiField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.EmojiField.Label"));
         props.setLook(wlEmojiField);
@@ -381,7 +381,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdEmojiField.right = new FormAttachment( 100, 0 );
         fdEmojiField.top  = new FormAttachment( wAliasField, margin );
         wEmojiField.setLayoutData( fdEmojiField );
-        
+
         wEmojiField.addFocusListener( new FocusListener() {
             public void focusLost( org.eclipse.swt.events.FocusEvent e ) {
             }
@@ -394,9 +394,9 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
               busy.dispose();
             }
           } );
-      
-      
-      
+
+
+
 //        // ValName line
 //        wlValName = new Label( shell, SWT.RIGHT );
 //        wlValName.setText( BaseMessages.getString(PKG, "RocketChatPluginDialog.ValueName.Label" ) ); //$NON-NLS-1$
@@ -504,7 +504,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
 
         getData();
         input.setChanged( changed );
-        
+
         wAdvanced.setSelection((boolean) advanced.getValueData());
         activeAdvanced();
 
@@ -542,19 +542,19 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         if ( channelField != null ) {
             wChannelField.setText( channelField.getValueData().toString());
         }
-        
+
         if ( messageField != null ) {
             wMessageField.setText( messageField.getValueData().toString());
         }
-        
+
         if ( advanced!= null ) {
             wAdvanced.setText( advanced.getValueData().toString());
         }
-        
+
         if ( aliasField != null ) {
             wAliasField.setText( aliasField.getValueData().toString());
         }
-        
+
         if ( emojiField != null ) {
             wEmojiField.setText( emojiField.getValueData().toString());
         }
@@ -577,13 +577,13 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         channelField.setValueData(wChannelField.getText());
         messageField.setValueData(wMessageField.getText());
         advanced.setValueData(wAdvanced.getSelection());
-    	aliasField.setValueData(wAliasField.getText());
-        emojiField.setValueData(wEmojiField.getText());        	
+        aliasField.setValueData(wAliasField.getText());
+        emojiField.setValueData(wEmojiField.getText());
 //        urlValue.getValueMeta().setName( wUrl.getText() );
 //        userValue.getValueMeta().setName( wUser.getText() );
 //        passwordValue.getValueMeta().setName( wPassword.getText() );
-            
-        
+
+
         input.setUrl(url);
         input.setUser(user);
         input.setPassword(password);
@@ -594,7 +594,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         input.setEmojiField(emojiField);
         dispose();
     }
-    
+
     protected void setComboBoxes() {
         // Something was changed in the row.
         //
@@ -612,46 +612,46 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         colinfoparams[0].setComboValues( fieldNames );
         colinf[0].setComboValues( fieldNames );
       }
-    
+
     private void setStreamFields() {
-	    if ( !gotPreviousFields ) {
-	      String channelfield = wChannelField.getText();
-	      String messagefield = wMessageField.getText();
-	      String aliasfield = wAliasField.getText();
-	      String emojifield = wEmojiField.getText();
+        if ( !gotPreviousFields ) {
+          String channelfield = wChannelField.getText();
+          String messagefield = wMessageField.getText();
+          String aliasfield = wAliasField.getText();
+          String emojifield = wEmojiField.getText();
 
-	      wChannelField.removeAll();
-	      wMessageField.removeAll();
-	      wAliasField.removeAll();
-	      wEmojiField.removeAll();
+          wChannelField.removeAll();
+          wMessageField.removeAll();
+          wAliasField.removeAll();
+          wEmojiField.removeAll();
 
-	      try {
-	        if ( fieldNames != null ) {
-	        	wChannelField.setItems( fieldNames );
-	        	wMessageField.setItems( fieldNames );
-	        	wAliasField.setItems( fieldNames );
-	        	wEmojiField.setItems( fieldNames );
-	        } else {
-	        	logError("fieldnames was null!");
-	        }
-	      } finally {
-	        if ( channelfield != null ) {
-	          wChannelField.setText( channelfield );
-	        }
-	        if ( channelfield != null ) {
-	          wMessageField.setText( messagefield );
-	        }
-	        if ( aliasfield != null ) {
-	          wAliasField.setText( aliasfield );
-	        }
-	        if ( aliasfield != null ) {
-	          wEmojiField.setText( emojifield);
-	        }
-	      }
-	      gotPreviousFields = true;
-	    }
+          try {
+            if ( fieldNames != null ) {
+                wChannelField.setItems( fieldNames );
+                wMessageField.setItems( fieldNames );
+                wAliasField.setItems( fieldNames );
+                wEmojiField.setItems( fieldNames );
+            } else {
+                logError("fieldnames was null!");
+            }
+          } finally {
+            if ( channelfield != null ) {
+              wChannelField.setText( channelfield );
+            }
+            if ( channelfield != null ) {
+              wMessageField.setText( messagefield );
+            }
+            if ( aliasfield != null ) {
+              wAliasField.setText( aliasfield );
+            }
+            if ( aliasfield != null ) {
+              wEmojiField.setText( emojifield);
+            }
+          }
+          gotPreviousFields = true;
+        }
     }
-    
+
     private void activeAdvanced() {
         wlAliasField.setEnabled( wAdvanced.getSelection() );
         wAliasField.setEnabled( wAdvanced.getSelection() );
