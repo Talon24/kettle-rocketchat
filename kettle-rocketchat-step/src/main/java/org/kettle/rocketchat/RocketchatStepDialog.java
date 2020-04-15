@@ -55,7 +55,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private FormData fdlUrl, fdUrl;
 
     private Text wUser;
-    private FormData fdluser, fdUser;
+    private FormData fdlUser, fdUser;
     private Label wlUser;
 
     private Label wlPassword;
@@ -182,11 +182,11 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         wlUser = new Label(shell, SWT.RIGHT);
         wlUser.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.user.Label")); //$NON-NLS-1$
         props.setLook(wlUser);
-        fdluser = new FormData();
-        fdluser.left = new FormAttachment(0, 0);
-        fdluser.right = new FormAttachment(middle, -margin);
-        fdluser.top = new FormAttachment(wlUrl, 2 * margin);
-        wlUser.setLayoutData(fdluser);
+        fdlUser = new FormData();
+        fdlUser.left = new FormAttachment(0, 0);
+        fdlUser.right = new FormAttachment(middle, -margin);
+        fdlUser.top = new FormAttachment(wlUrl, 2 * margin);
+        wlUser.setLayoutData(fdlUser);
         wUser = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
         props.setLook(wUser);
         wUser.addModifyListener(lsMod);
