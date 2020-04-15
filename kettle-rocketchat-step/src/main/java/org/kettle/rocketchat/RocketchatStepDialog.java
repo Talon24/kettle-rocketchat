@@ -82,10 +82,10 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private Label wlEmojiField;
     private ComboVar wEmojiField;
     private FormData fdlEmojiField, fdEmojiField;
-    
+
     private Label wlStatusFieldName;
     private Text wStatusFieldName;
-    private FormData fdlStatusFieldName, fdStatusFieldName; 
+    private FormData fdlStatusFieldName, fdStatusFieldName;
 
     private boolean gotPreviousFields = false;
     private String[] fieldNames;
@@ -305,8 +305,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 activeAdvanced();
             }
         });
-        
-        
+
         // Alias line
 
         wlAliasField = new Label(shell, SWT.RIGHT);
@@ -339,7 +338,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 busy.dispose();
             }
         });
-        
+
         // Avatar line
 
         wlEmojiField = new Label(shell, SWT.RIGHT);
@@ -372,8 +371,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 busy.dispose();
             }
         });
-        
-        
+
         wlStatusFieldName = new Label(shell, SWT.RIGHT);
         wlStatusFieldName.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.fieldName.Label")); //$NON-NLS-1$
         props.setLook(wlStatusFieldName);
@@ -390,8 +388,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdStatusFieldName.right = new FormAttachment(100, 0);
         fdStatusFieldName.top = new FormAttachment(wEmojiField, margin);
         wStatusFieldName.setLayoutData(fdStatusFieldName);
-        
-        
+
         final Runnable runnable = new Runnable() {
             public void run() {
                 StepMeta stepMeta = transMeta.findStep(stepname);
@@ -417,8 +414,6 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                         ColumnInfo.COLUMN_TYPE_CCOMBO, new String[] { "" }, false),
                 new ColumnInfo(BaseMessages.getString(PKG, "RestDialog.ColumnInfo.Name"), ColumnInfo.COLUMN_TYPE_TEXT,
                         false) };
-        
-        
 
         // OK / Cancel button
         wOK = new Button(shell, SWT.PUSH);
@@ -501,7 +496,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         }
 
         if (advanced != null) {
-            wAdvanced.setSelection((boolean) advanced.getValueData());  // Difference!
+            wAdvanced.setSelection((boolean) advanced.getValueData()); // Difference!
         }
 
         if (aliasField != null) {

@@ -300,8 +300,8 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     }
 
     private void injectXML(Node stepnode, ValueMetaAndData attribute, String name) {
-        Node valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                name, 0);
+        Node valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name", name,
+                0);
         if (valnode != null) {
 //            logError("XML nodeName: " + valnode.getTextContent());
 //            logError("XML nodeName: " + XMLHandler.getSubNode(valnode, "name").getTextContent());
