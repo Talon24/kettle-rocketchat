@@ -34,7 +34,9 @@ import java.net.MalformedURLException;
         i18nPackageName = "be.ibridge.kettle.rocket.chat",
         name = "RocketChat.Step.Name",
         description = "RocketChat.Step.Description",
-        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Utility"
+        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Utility",
+        documentationUrl = "https://github.com/Talon24/kettle-rocketchat",
+        casesUrl = "https://github.com/Talon24/kettle-rocketchat/issues"
 //        image = "rocket.svg",
 //        image = "ui/images/rocket.svg",
 //        suggestion = "DummyStep.Step.SuggestedStep"
