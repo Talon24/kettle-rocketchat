@@ -166,7 +166,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     @Override
     public String getXML() throws KettleException {
         ValueMetaAndData password_ = (ValueMetaAndData) password.clone();
-        password_.setValueData(Encr.encryptPasswordIfNotUsingVariables((String) password_.getValueData()));
+        password_.setValueData(Encr.encryptPasswordIfNotUsingVariables(password_.getValueData().toString()));
         String retval = "";
 
         retval += "    <values>" + Const.CR;
@@ -305,7 +305,18 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
             if (aliasField.getValueData() == null) aliasField.setValueData("");
             if (emojiField.getValueData() == null) emojiField.setValueData("");
             if (statusFieldName.getValueData() == null) statusFieldName.setValueData("");
-            password.setValueData(Encr.decryptPasswordOptionallyEncrypted((String) password.getValueData()));
+            
+            if (url.getValueMeta() == null) url.setValueMeta(new ValueMetaString());
+            if (user.getValueMeta() == null) user.setValueMeta(new ValueMetaString());
+            if (password.getValueMeta() == null) password.setValueMeta(new ValueMetaString());
+            if (channelField.getValueMeta() == null) channelField.setValueMeta(new ValueMetaString());
+            if (messageField.getValueMeta() == null) messageField.setValueMeta(new ValueMetaString());
+            if (advanced.getValueMeta() == null) advanced.setValueMeta(new ValueMetaBoolean());
+            if (aliasField.getValueMeta() == null) aliasField.setValueMeta(new ValueMetaString());
+            if (emojiField.getValueMeta() == null) emojiField.setValueMeta(new ValueMetaString());
+            if (statusFieldName.getValueMeta() == null) statusFieldName.setValueMeta(new ValueMetaString());
+            
+            password.setValueData(Encr.decryptPasswordOptionallyEncrypted(password.getValueData().toString()));
         } catch (Exception e) {
             throw new KettleXMLException("Unable to read step info from XML node", e);
         }
