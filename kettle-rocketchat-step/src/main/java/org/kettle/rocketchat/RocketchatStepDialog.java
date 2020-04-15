@@ -225,6 +225,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         wChannelField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wChannelField);
         wChannelField.addModifyListener(lsMod);
+        wChannelField.setToolTipText(BaseMessages.getString(PKG, "RocketChatPluginDialog.ChannelField.Tooltip"));
         fdChannelField = new FormData();
         fdChannelField.left = new FormAttachment(middle, 0);
         fdChannelField.right = new FormAttachment(100, 0);
@@ -336,7 +337,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         wlAliasField.setLayoutData(fdlAliasField);
         wAliasField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wAliasField);
-        wChannelField.addModifyListener(lsMod);
+        wAliasField.addModifyListener(lsMod);
+        wAliasField.setToolTipText(BaseMessages.getString(PKG, "RocketChatPluginDialog.AliasField.Tooltip"));
         fdAliasField = new FormData();
         fdAliasField.left = new FormAttachment(middle, 0);
         fdAliasField.right = new FormAttachment(100, 0);
@@ -366,7 +368,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         wlEmojiField.setLayoutData(fdlEmojiField);
         wEmojiField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wEmojiField);
-        wChannelField.addModifyListener(lsMod);
+        wEmojiField.addModifyListener(lsMod);
+        wEmojiField.setToolTipText(BaseMessages.getString(PKG, "RocketChatPluginDialog.EmojiField.Tooltip"));
         fdEmojiField = new FormData();
         fdEmojiField.left = new FormAttachment(middle, 0);
         fdEmojiField.right = new FormAttachment(100, 0);
