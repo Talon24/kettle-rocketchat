@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.*;
 import org.pentaho.di.core.*;
 import org.pentaho.di.core.annotations.*;
 import org.pentaho.di.core.database.*;
+import org.pentaho.di.core.encryption.Encr;
 import org.pentaho.di.core.exception.*;
 import org.pentaho.di.core.row.*;
 import org.pentaho.di.core.row.value.*;
@@ -155,13 +156,15 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 
     @Override
     public String getXML() throws KettleException {
+        ValueMetaAndData password_ = (ValueMetaAndData) password.clone();
+        password_.setValueData(Encr.encryptPasswordIfNotUsingVariables((String) password_.getValueData()));
         String retval = "";
 
         retval += "    <values>" + Const.CR;
         if (url != null) {
             retval += url.getXML();
             retval += user.getXML();
-            retval += password.getXML();
+            retval += password_.getXML();
             retval += channelField.getXML();
             retval += messageField.getXML();
             retval += advanced.getXML();
@@ -284,6 +287,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
             if (advanced.getValueData() == null) advanced.setValueData("");
             if (aliasField.getValueData() == null) aliasField.setValueData("");
             if (emojiField.getValueData() == null) emojiField.setValueData("");
+            password.setValueData(Encr.decryptPasswordOptionallyEncrypted((String) password.getValueData()));
         } catch (Exception e) {
             throw new KettleXMLException("Unable to read step info from XML node", e);
         }
@@ -310,56 +314,6 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         advanced.getValueMeta().setName("advanced");
         aliasField.getValueMeta().setName("aliasField");
         emojiField.getValueMeta().setName("emojiField");
-    }
-
-    @Override
-    public void readRep(Repository rep, IMetaStore metaStore, ObjectId id_step, List<DatabaseMeta> databases)
-            throws KettleException {
-        try {
-            String name = rep.getStepAttributeString(id_step, 0, "value_name");
-            String typedesc = rep.getStepAttributeString(id_step, 0, "value_type");
-            String text = rep.getStepAttributeString(id_step, 0, "value_text");
-            boolean isnull = rep.getStepAttributeBoolean(id_step, 0, "value_null");
-            int length = (int) rep.getStepAttributeInteger(id_step, 0, "value_length");
-            int precision = (int) rep.getStepAttributeInteger(id_step, 0, "value_precision");
-
-            int type = ValueMetaFactory.getIdForValueMeta(typedesc);
-            url = new ValueMetaAndData(new ValueMetaString(name), null);
-            url.getValueMeta().setLength(length);
-            url.getValueMeta().setPrecision(precision);
-
-            if (isnull) {
-                url.setValueData(null);
-            } else {
-                ValueMetaInterface stringMeta = new ValueMetaString(name);
-                if (type != ValueMetaInterface.TYPE_STRING) {
-                    text = Const.trim(text);
-                }
-                url.setValueData(url.getValueMeta().convertData(stringMeta, text));
-            }
-        } catch (KettleDatabaseException dbe) {
-            throw new KettleException("error reading step with id_step=" + id_step + " from the repository", dbe);
-        } catch (Exception e) {
-            throw new KettleException("Unexpected error reading step with id_step=" + id_step + " from the repository",
-                    e);
-        }
-    }
-
-    @Override
-    public void saveRep(Repository rep, IMetaStore metaStore, ObjectId id_transformation, ObjectId id_step)
-            throws KettleException {
-        try {
-            rep.saveStepAttribute(id_transformation, id_step, "value_name", url.getValueMeta().getName());
-            rep.saveStepAttribute(id_transformation, id_step, 0, "value_type", url.getValueMeta().getTypeDesc());
-            rep.saveStepAttribute(id_transformation, id_step, 0, "value_text",
-                    url.getValueMeta().getString(url.getValueData()));
-            rep.saveStepAttribute(id_transformation, id_step, 0, "value_null",
-                    url.getValueMeta().isNull(url.getValueData()));
-            rep.saveStepAttribute(id_transformation, id_step, 0, "value_length", url.getValueMeta().getLength());
-            rep.saveStepAttribute(id_transformation, id_step, 0, "value_precision", url.getValueMeta().getPrecision());
-        } catch (KettleDatabaseException dbe) {
-            throw new KettleException("Unable to save step information to the repository, id_step=" + id_step, dbe);
-        }
     }
 
     @Override

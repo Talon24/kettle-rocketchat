@@ -205,7 +205,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlPassword.right = new FormAttachment(middle, -margin);
         fdlPassword.top = new FormAttachment(wlUser, 2 * margin);
         wlPassword.setLayoutData(fdlPassword);
-        wPassword = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
+        wPassword = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER | SWT.PASSWORD);
         props.setLook(wPassword);
         wPassword.addModifyListener(lsMod);
         fdPassword = new FormData();
