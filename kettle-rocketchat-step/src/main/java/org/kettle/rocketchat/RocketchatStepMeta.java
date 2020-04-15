@@ -226,96 +226,27 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     @Override
     public void loadXML(Node stepnode, List<DatabaseMeta> databases, IMetaStore metaStore) throws KettleXMLException {
         try {
-            url = new ValueMetaAndData();
-            user = new ValueMetaAndData();
-            password = new ValueMetaAndData();
-            channelField = new ValueMetaAndData();
-            messageField = new ValueMetaAndData();
+            url = new ValueMetaAndData(new ValueMetaString(), "url");
+            user = new ValueMetaAndData(new ValueMetaString(), "user");
+            password = new ValueMetaAndData(new ValueMetaString(), "password");
+            channelField = new ValueMetaAndData(new ValueMetaString(), "channelField");
+            messageField = new ValueMetaAndData(new ValueMetaString(), "messageField");
             advanced = new ValueMetaAndData(new ValueMetaBoolean(), "advanced");
-            aliasField = new ValueMetaAndData();
-            emojiField = new ValueMetaAndData();
-            statusFieldName = new ValueMetaAndData();
+            aliasField = new ValueMetaAndData(new ValueMetaString(), "aliasField");
+            emojiField = new ValueMetaAndData(new ValueMetaString(), "emojiField");
+            statusFieldName = new ValueMetaAndData(new ValueMetaString(), "statusFieldName");
 
-//            Node val = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode( stepnode, "values"), "value", "name", "url", 0);
-//            if (val != null) {logError("search for the url tag: " + val.getTextContent());} else {logError("search for url tag failed!");}
-//
-//            Node valnode = XMLHandler.getSubNode( stepnode, "values", "value" );
-            Node valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "url", 0);
-            if (valnode != null) {
-//                logError("XML nodeName: " + valnode.getTextContent());
-//                logError("XML nodeName: " + XMLHandler.getSubNode(valnode, "name").getTextContent());
-                System.out.println("reading value in " + valnode);
-                url.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name", "user",
-                    0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                user.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "password", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                password.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "channelField", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                channelField.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "messageField", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                messageField.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "advanced", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                advanced.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "aliasField", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                aliasField.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "emojiField", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                emojiField.loadXML(valnode);
-            }
-            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
-                    "statusFieldName", 0);
-            if (valnode != null) {
-                System.out.println("reading value in " + valnode);
-                statusFieldName.loadXML(valnode);
-            }
-            if (url.getValueData() == null) url.setValueData("");
-            if (user.getValueData() == null) user.setValueData("");
-            if (password.getValueData() == null) password.setValueData("");
-            if (channelField.getValueData() == null) channelField.setValueData("");
-            if (messageField.getValueData() == null) messageField.setValueData("");
-            if (advanced.getValueData() == null) advanced.setValueData("");
-            if (aliasField.getValueData() == null) aliasField.setValueData("");
-            if (emojiField.getValueData() == null) emojiField.setValueData("");
-            if (statusFieldName.getValueData() == null) statusFieldName.setValueData("");
-            
-            if (url.getValueMeta() == null) url.setValueMeta(new ValueMetaString());
-            if (user.getValueMeta() == null) user.setValueMeta(new ValueMetaString());
-            if (password.getValueMeta() == null) password.setValueMeta(new ValueMetaString());
-            if (channelField.getValueMeta() == null) channelField.setValueMeta(new ValueMetaString());
-            if (messageField.getValueMeta() == null) messageField.setValueMeta(new ValueMetaString());
-            if (advanced.getValueMeta() == null) advanced.setValueMeta(new ValueMetaBoolean());
-            if (aliasField.getValueMeta() == null) aliasField.setValueMeta(new ValueMetaString());
-            if (emojiField.getValueMeta() == null) emojiField.setValueMeta(new ValueMetaString());
-            if (statusFieldName.getValueMeta() == null) statusFieldName.setValueMeta(new ValueMetaString());
-            
+            injectXML(stepnode, url, "url");
+            injectXML(stepnode, user, "user");
+            injectXML(stepnode, password, "password");
+            injectXML(stepnode, channelField, "channelField");
+            injectXML(stepnode, messageField, "messageField");
+            injectXML(stepnode, advanced, "advanced");
+            injectXML(stepnode, aliasField, "aliasField");
+            injectXML(stepnode, emojiField, "emojiField");
+            injectXML(stepnode, statusFieldName, "statusFieldName");
+            fix_names();
+
             password.setValueData(Encr.decryptPasswordOptionallyEncrypted(password.getValueData().toString()));
         } catch (Exception e) {
             throw new KettleXMLException("Unable to read step info from XML node", e);
@@ -336,15 +267,19 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         aliasField = new ValueMetaAndData(new ValueMetaString(), "Alias field");
         emojiField = new ValueMetaAndData(new ValueMetaString(), "Emoji / avatar url field");
         statusFieldName = new ValueMetaAndData(new ValueMetaString(), "status");
-        url.getValueMeta().setName("url");
-        user.getValueMeta().setName("user");
-        password.getValueMeta().setName("password");
-        channelField.getValueMeta().setName("channelField");
-        messageField.getValueMeta().setName("messageField");
-        advanced.getValueMeta().setName("advanced");
-        aliasField.getValueMeta().setName("aliasField");
-        emojiField.getValueMeta().setName("emojiField");
-        statusFieldName.getValueMeta().setName("statusField");
+        fix_names();
+    }
+
+    public void fix_names() {
+        if (url.getValueMeta().getName() == null) url.getValueMeta().setName("url");
+        if (user.getValueMeta().getName() == null) user.getValueMeta().setName("user");
+        if (password.getValueMeta().getName() == null) password.getValueMeta().setName("password");
+        if (channelField.getValueMeta().getName() == null) channelField.getValueMeta().setName("channelField");
+        if (messageField.getValueMeta().getName() == null) messageField.getValueMeta().setName("messageField");
+        if (advanced.getValueMeta().getName() == null) advanced.getValueMeta().setName("advanced");
+        if (aliasField.getValueMeta().getName() == null) aliasField.getValueMeta().setName("aliasField");
+        if (emojiField.getValueMeta().getName() == null) emojiField.getValueMeta().setName("emojiField");
+        if (statusFieldName.getValueMeta().getName() == null) statusFieldName.getValueMeta().setName("statusFieldName");
     }
 
     @Override
@@ -385,5 +320,17 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     @Override
     public StepDataInterface getStepData() {
         return new RocketchatStepData();
+    }
+
+    private void injectXML(Node stepnode, ValueMetaAndData attribute, String name) {
+        Node valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
+                name, 0);
+        if (valnode != null) {
+//            logError("XML nodeName: " + valnode.getTextContent());
+//            logError("XML nodeName: " + XMLHandler.getSubNode(valnode, "name").getTextContent());
+//            System.out.println("reading value in " + valnode);
+            attribute.loadXML(valnode);
+        }
+        if (attribute.getValueData() == null) attribute.setValueData("");
     }
 }
