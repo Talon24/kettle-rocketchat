@@ -173,7 +173,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlUrl = new FormData();
         fdlUrl.left = new FormAttachment(0, 0);
         fdlUrl.right = new FormAttachment(middle, -margin);
-        fdlUrl.top = new FormAttachment(wStepname, 2 * margin);
+        fdlUrl.top = new FormAttachment(wStepname, 1 * margin);
         wlUrl.setLayoutData(fdlUrl);
         wUrl = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
         props.setLook(wUrl);
@@ -191,7 +191,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlUser = new FormData();
         fdlUser.left = new FormAttachment(0, 0);
         fdlUser.right = new FormAttachment(middle, -margin);
-        fdlUser.top = new FormAttachment(wlUrl, 2 * margin);
+        fdlUser.top = new FormAttachment(wUrl, 1 * margin);
         wlUser.setLayoutData(fdlUser);
         wUser = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
         props.setLook(wUser);
@@ -209,7 +209,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlPassword = new FormData();
         fdlPassword.left = new FormAttachment(0, 0);
         fdlPassword.right = new FormAttachment(middle, -margin);
-        fdlPassword.top = new FormAttachment(wlUser, 2 * margin);
+        fdlPassword.top = new FormAttachment(wUser, 1 * margin);
         wlPassword.setLayoutData(fdlPassword);
         wPassword = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER | SWT.PASSWORD);
         props.setLook(wPassword);
@@ -226,7 +226,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlChannelField = new FormData();
         fdlChannelField.left = new FormAttachment(0, 0);
         fdlChannelField.right = new FormAttachment(middle, -margin);
-        fdlChannelField.top = new FormAttachment(wlPassword, 2 * margin);
+        fdlChannelField.top = new FormAttachment(wPassword, 1 * margin);
         wlChannelField.setLayoutData(fdlChannelField);
         wChannelField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wChannelField);
@@ -285,7 +285,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlMessageField = new FormData();
         fdlMessageField.left = new FormAttachment(0, 0);
         fdlMessageField.right = new FormAttachment(middle, -margin);
-        fdlMessageField.top = new FormAttachment(wlChannelField, 2 * margin);
+        fdlMessageField.top = new FormAttachment(wChannelField, 1 * margin);
         wlMessageField.setLayoutData(fdlMessageField);
         wMessageField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wMessageField);
@@ -316,7 +316,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlAdvanced = new FormData();
         fdlAdvanced.left = new FormAttachment(0, 0);
         fdlAdvanced.right = new FormAttachment(middle, -margin);
-        fdlAdvanced.top = new FormAttachment(wlMessageField, 2 * margin);
+        fdlAdvanced.top = new FormAttachment(wMessageField, 1 * margin);
         wlAdvanced.setLayoutData(fdlAdvanced);
         wAdvanced = new Button(shell, SWT.CHECK);
         props.setLook(wAdvanced);
@@ -339,7 +339,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlAliasField = new FormData();
         fdlAliasField.left = new FormAttachment(0, 0);
         fdlAliasField.right = new FormAttachment(middle, -margin);
-        fdlAliasField.top = new FormAttachment(wlAdvanced, 2 * margin);
+        fdlAliasField.top = new FormAttachment(wAdvanced, 1 * margin);
         wlAliasField.setLayoutData(fdlAliasField);
         wAliasField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wAliasField);
@@ -370,7 +370,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlEmojiField = new FormData();
         fdlEmojiField.left = new FormAttachment(0, 0);
         fdlEmojiField.right = new FormAttachment(middle, -margin);
-        fdlEmojiField.top = new FormAttachment(wlAliasField, 2 * margin);
+        fdlEmojiField.top = new FormAttachment(wAliasField, 1 * margin);
         wlEmojiField.setLayoutData(fdlEmojiField);
         wEmojiField = new ComboVar(transMeta, shell, SWT.BORDER | SWT.READ_ONLY);
         props.setLook(wEmojiField);
@@ -402,7 +402,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlStatusFieldName = new FormData();
         fdlStatusFieldName.left = new FormAttachment(0, 0);
         fdlStatusFieldName.right = new FormAttachment(middle, -margin);
-        fdlStatusFieldName.top = new FormAttachment(wlEmojiField, 2 * margin);
+        fdlStatusFieldName.top = new FormAttachment(wEmojiField, 1 * margin);
         wlStatusFieldName.setLayoutData(fdlStatusFieldName);
         wStatusFieldName = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
         props.setLook(wStatusFieldName);
