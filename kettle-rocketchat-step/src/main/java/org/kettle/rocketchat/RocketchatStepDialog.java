@@ -49,6 +49,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private ValueMetaAndData advanced;
     private ValueMetaAndData aliasField;
     private ValueMetaAndData emojiField;
+    private ValueMetaAndData statusFieldName;
 
     private Label wlUrl;
     private Text wUrl;
@@ -81,6 +82,10 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     private Label wlEmojiField;
     private ComboVar wEmojiField;
     private FormData fdlEmojiField, fdEmojiField;
+    
+    private Label wlStatusFieldName;
+    private Text wStatusFieldName;
+    private FormData fdlStatusFieldName, fdStatusFieldName; 
 
     private boolean gotPreviousFields = false;
     private String[] fieldNames;
@@ -109,6 +114,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         advanced = input.getAdvanced();
         aliasField = input.getAliasField();
         emojiField = input.getEmojiField();
+        statusFieldName = input.getStatusFieldName();
         inputFields = new HashMap<String, Integer>();
     }
 
@@ -388,6 +394,24 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 busy.dispose();
             }
         });
+        
+        
+        wlStatusFieldName = new Label(shell, SWT.RIGHT);
+        wlStatusFieldName.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.fieldName.Label")); //$NON-NLS-1$
+        props.setLook(wlStatusFieldName);
+        fdlStatusFieldName = new FormData();
+        fdlStatusFieldName.left = new FormAttachment(0, 0);
+        fdlStatusFieldName.right = new FormAttachment(middle, -margin);
+        fdlStatusFieldName.top = new FormAttachment(wlEmojiField, 2 * margin);
+        wlStatusFieldName.setLayoutData(fdlStatusFieldName);
+        wStatusFieldName = new Text(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
+        props.setLook(wStatusFieldName);
+        wStatusFieldName.addModifyListener(lsMod);
+        fdStatusFieldName = new FormData();
+        fdStatusFieldName.left = new FormAttachment(middle, 0);
+        fdStatusFieldName.right = new FormAttachment(100, 0);
+        fdStatusFieldName.top = new FormAttachment(wEmojiField, margin);
+        wStatusFieldName.setLayoutData(fdStatusFieldName);
 
 //        // ValName line
 //        wlValName = new Label( shell, SWT.RIGHT );
@@ -454,7 +478,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         wCancel.setText(BaseMessages.getString(PKG, "System.Button.Cancel")); //$NON-NLS-1$
 
 //        BaseStepDialog.positionBottomButtons( shell, new Button[] { wOK, wCancel }, margin, wValue );
-        BaseStepDialog.positionBottomButtons(shell, new Button[] { wOK, wCancel }, margin, wEmojiField);
+        BaseStepDialog.positionBottomButtons(shell, new Button[] { wOK, wCancel }, margin, wStatusFieldName);
 
         // Add listeners
         lsCancel = new Listener() {
@@ -550,6 +574,9 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         if (emojiField != null) {
             wEmojiField.setText(emojiField.getValueData().toString());
         }
+        if (statusFieldName != null) {
+            wStatusFieldName.setText(statusFieldName.getValueData().toString());
+        }
     }
 
     private void cancel() {
@@ -571,6 +598,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         advanced.setValueData(wAdvanced.getSelection());
         aliasField.setValueData(wAliasField.getText());
         emojiField.setValueData(wEmojiField.getText());
+        statusFieldName.setValueData(wStatusFieldName.getText());
 //        urlValue.getValueMeta().setName( wUrl.getText() );
 //        userValue.getValueMeta().setName( wUser.getText() );
 //        passwordValue.getValueMeta().setName( wPassword.getText() );
@@ -583,6 +611,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         input.setAdvanced(advanced);
         input.setAliasField(aliasField);
         input.setEmojiField(emojiField);
+        input.setStatusFieldName(statusFieldName);
         dispose();
     }
 

@@ -52,6 +52,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     private ValueMetaAndData advanced;
     private ValueMetaAndData aliasField;
     private ValueMetaAndData emojiField;
+    private ValueMetaAndData statusFieldName;
     private RocketchatClient rocketchat;
 
     public RocketchatStepMeta() {
@@ -128,6 +129,14 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         this.emojiField = emojiField;
     }
 
+    public ValueMetaAndData getStatusFieldName() {
+        return statusFieldName;
+    }
+
+    public void setStatusFieldName(ValueMetaAndData statusFieldName) {
+        this.statusFieldName = statusFieldName;
+    }
+
     public void startRocketchat(String url, String user, String password) throws IOException {
         rocketchat = new RocketchatClient(url, user, password);
     }
@@ -170,6 +179,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
             retval += advanced.getXML();
             retval += aliasField.getXML();
             retval += emojiField.getXML();
+            retval += statusFieldName.getXML();
         }
         retval += "      </values>" + Const.CR;
 
@@ -200,7 +210,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 //            r.addValueMeta( v );
 //        }
         ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
-        status.getValueMeta().setName("status");
+        status.getValueMeta().setName(statusFieldName.getValueData().toString());
         ValueMetaInterface v = status.getValueMeta();
         v.setOrigin(origin);
         r.addValueMeta(v);
@@ -224,6 +234,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
             advanced = new ValueMetaAndData(new ValueMetaBoolean(), "advanced");
             aliasField = new ValueMetaAndData();
             emojiField = new ValueMetaAndData();
+            statusFieldName = new ValueMetaAndData();
 
 //            Node val = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode( stepnode, "values"), "value", "name", "url", 0);
 //            if (val != null) {logError("search for the url tag: " + val.getTextContent());} else {logError("search for url tag failed!");}
@@ -279,6 +290,12 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
                 System.out.println("reading value in " + valnode);
                 emojiField.loadXML(valnode);
             }
+            valnode = XMLHandler.getNodeWithTagValue(XMLHandler.getSubNode(stepnode, "values"), "value", "name",
+                    "statusFieldName", 0);
+            if (valnode != null) {
+                System.out.println("reading value in " + valnode);
+                statusFieldName.loadXML(valnode);
+            }
             if (url.getValueData() == null) url.setValueData("");
             if (user.getValueData() == null) user.setValueData("");
             if (password.getValueData() == null) password.setValueData("");
@@ -287,6 +304,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
             if (advanced.getValueData() == null) advanced.setValueData("");
             if (aliasField.getValueData() == null) aliasField.setValueData("");
             if (emojiField.getValueData() == null) emojiField.setValueData("");
+            if (statusFieldName.getValueData() == null) statusFieldName.setValueData("");
             password.setValueData(Encr.decryptPasswordOptionallyEncrypted((String) password.getValueData()));
         } catch (Exception e) {
             throw new KettleXMLException("Unable to read step info from XML node", e);
@@ -306,6 +324,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         advanced = new ValueMetaAndData(new ValueMetaBoolean(), false);
         aliasField = new ValueMetaAndData(new ValueMetaString(), "Alias field");
         emojiField = new ValueMetaAndData(new ValueMetaString(), "Emoji / avatar url field");
+        statusFieldName = new ValueMetaAndData(new ValueMetaString(), "status");
         url.getValueMeta().setName("url");
         user.getValueMeta().setName("user");
         password.getValueMeta().setName("password");
@@ -314,6 +333,7 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         advanced.getValueMeta().setName("advanced");
         aliasField.getValueMeta().setName("aliasField");
         emojiField.getValueMeta().setName("emojiField");
+        statusFieldName.getValueMeta().setName("statusField");
     }
 
     @Override
