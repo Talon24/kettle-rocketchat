@@ -189,26 +189,6 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
     @Override
     public void getFields(RowMetaInterface r, String origin, RowMetaInterface[] info, StepMeta nextStep,
             VariableSpace space, Repository repository, IMetaStore metaStore) {
-//        if ( url != null ) {
-//            ValueMetaInterface v = url.getValueMeta();
-//            v.setOrigin( origin );
-//            r.addValueMeta( v );
-//        }
-//        if ( user != null ) {
-//            ValueMetaInterface v = user.getValueMeta();
-//            v.setOrigin( origin );
-//            r.addValueMeta( v );
-//        }
-//        if ( password != null ) {
-//            ValueMetaInterface v = password.getValueMeta();
-//            v.setOrigin( origin );
-//            r.addValueMeta( v );
-//        }
-//        if ( channelField != null ) {
-//            ValueMetaInterface v = channelField.getValueMeta();
-//            v.setOrigin( origin );
-//            r.addValueMeta( v );
-//        }
         ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
         status.getValueMeta().setName(statusFieldName.getValueData().toString());
         ValueMetaInterface v = status.getValueMeta();
@@ -255,9 +235,6 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
 
     @Override
     public void setDefault() {
-//        urlValue = new ValueMetaAndData( new ValueMetaNumber( "valuename" ), new Double( 123.456 ) );
-//        urlValue.getValueMeta().setLength( 12 );
-//        urlValue.getValueMeta().setPrecision( 4 );
         url = new ValueMetaAndData(new ValueMetaString(), "https://rocket.chat");
         user = new ValueMetaAndData(new ValueMetaString(), "Username");
         password = new ValueMetaAndData(new ValueMetaString(), "Password");

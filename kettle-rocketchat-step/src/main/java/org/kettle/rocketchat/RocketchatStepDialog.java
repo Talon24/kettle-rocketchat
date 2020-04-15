@@ -251,32 +251,6 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
             }
         });
 
-        final Runnable runnable = new Runnable() {
-            public void run() {
-                StepMeta stepMeta = transMeta.findStep(stepname);
-                if (stepMeta != null) {
-                    try {
-                        RowMetaInterface row = transMeta.getPrevStepFields(stepMeta);
-
-                        // Remember these fields...
-                        for (int i = 0; i < row.size(); i++) {
-                            inputFields.put(row.getValueMeta(i).getName(), Integer.valueOf(i));
-                        }
-
-                        setComboBoxes();
-                    } catch (KettleException e) {
-                        log.logError(toString(), BaseMessages.getString(PKG, "System.Dialog.GetFieldsFailed.Message"));
-                    }
-                }
-            }
-        };
-        new Thread(runnable).start();
-        colinf = new ColumnInfo[] {
-                new ColumnInfo(BaseMessages.getString(PKG, "RestDialog.ColumnInfo.Field"),
-                        ColumnInfo.COLUMN_TYPE_CCOMBO, new String[] { "" }, false),
-                new ColumnInfo(BaseMessages.getString(PKG, "RestDialog.ColumnInfo.Name"), ColumnInfo.COLUMN_TYPE_TEXT,
-                        false) };
-
         // Message Line
 
         wlMessageField = new Label(shell, SWT.RIGHT);
@@ -331,7 +305,9 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 activeAdvanced();
             }
         });
-        // Extended fields
+        
+        
+        // Alias line
 
         wlAliasField = new Label(shell, SWT.RIGHT);
         wlAliasField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.AliasField.Label"));
@@ -363,6 +339,8 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
                 busy.dispose();
             }
         });
+        
+        // Avatar line
 
         wlEmojiField = new Label(shell, SWT.RIGHT);
         wlEmojiField.setText(BaseMessages.getString(PKG, "RocketChatPluginDialog.EmojiField.Label"));
@@ -412,72 +390,42 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdStatusFieldName.right = new FormAttachment(100, 0);
         fdStatusFieldName.top = new FormAttachment(wEmojiField, margin);
         wStatusFieldName.setLayoutData(fdStatusFieldName);
+        
+        
+        final Runnable runnable = new Runnable() {
+            public void run() {
+                StepMeta stepMeta = transMeta.findStep(stepname);
+                if (stepMeta != null) {
+                    try {
+                        RowMetaInterface row = transMeta.getPrevStepFields(stepMeta);
 
-//        // ValName line
-//        wlValName = new Label( shell, SWT.RIGHT );
-//        wlValName.setText( BaseMessages.getString(PKG, "RocketChatPluginDialog.ValueName.Label" ) ); //$NON-NLS-1$
-//        props.setLook( wlValName );
-//        fdlValName = new FormData();
-//        fdlValName.left = new FormAttachment( 0, 0 );
-//        fdlValName.right = new FormAttachment( middle, -margin );
-//        fdlValName.top = new FormAttachment( wStepname, margin );
-//        wlValName.setLayoutData( fdlValName );
-//        wValName = new Text( shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER );
-//        props.setLook( wValName );
-//        wValName.addModifyListener( lsMod );
-//        fdValName = new FormData();
-//        fdValName.left = new FormAttachment( middle, 0 );
-//        fdValName.right = new FormAttachment( 100, 0 );
-//        fdValName.top  = new FormAttachment( wStepname, margin );
-//        wValName.setLayoutData( fdValName );
+                        // Remember these fields...
+                        for (int i = 0; i < row.size(); i++) {
+                            inputFields.put(row.getValueMeta(i).getName(), Integer.valueOf(i));
+                        }
 
-        // Value line
-//        wlValue = new Label( shell, SWT.RIGHT );
-//        wlValue.setText( BaseMessages.getString(PKG, "RocketChatPluginDialog.ValueToAdd.Label" ) ); //$NON-NLS-1$
-//        props.setLook( wlValue );
-//        fdlValue = new FormData();
-//        fdlValue.left = new FormAttachment( 0, 0 );
-//        fdlValue.right = new FormAttachment( middle, -margin );
-//        fdlValue.top = new FormAttachment( wValName, margin );
-//        wlValue.setLayoutData( fdlValue );
-//
-//        wbValue = new Button( shell, SWT.PUSH | SWT.CENTER );
-//        props.setLook( wbValue );
-//        wbValue.setText( BaseMessages.getString(PKG, "System.Button.Edit" ) ); //$NON-NLS-1$
-//        fdbValue = new FormData();
-//        fdbValue.right = new FormAttachment( 100, 0 );
-//        fdbValue.top  = new FormAttachment( wValName, margin );
-//        wbValue.setLayoutData( fdbValue );
-//
-//        wValue = new Text( shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER );
-//        props.setLook( wValue );
-//        wValue.addModifyListener( lsMod );
-//        fdValue = new FormData();
-//        fdValue.left = new FormAttachment( middle, 0 );
-//        fdValue.right = new FormAttachment( wbValue, -margin );
-//        fdValue.top  = new FormAttachment( wValName, margin );
-//        wValue.setLayoutData( fdValue );
-//
-//        wbValue.addSelectionListener( new SelectionAdapter() {
-//            @Override
-//            public void widgetSelected( SelectionEvent arg0 ) {
-//                ValueMetaAndData v = (ValueMetaAndData) value.clone();
-//                EnterValueDialog evd = new EnterValueDialog( shell, SWT.NONE, v.getValueMeta(), v.getValueData() );
-//                ValueMetaAndData newval = evd.open();
-//                if ( newval != null ) {
-//                    value = newval;
-//                    getData();
-//                }
-//            }
-//        } );
+                        setComboBoxes();
+                    } catch (KettleException e) {
+                        log.logError(toString(), BaseMessages.getString(PKG, "System.Dialog.GetFieldsFailed.Message"));
+                    }
+                }
+            }
+        };
+        new Thread(runnable).start();
+        colinf = new ColumnInfo[] {
+                new ColumnInfo(BaseMessages.getString(PKG, "RestDialog.ColumnInfo.Field"),
+                        ColumnInfo.COLUMN_TYPE_CCOMBO, new String[] { "" }, false),
+                new ColumnInfo(BaseMessages.getString(PKG, "RestDialog.ColumnInfo.Name"), ColumnInfo.COLUMN_TYPE_TEXT,
+                        false) };
+        
+        
 
-        // Some buttons
+        // OK / Cancel button
         wOK = new Button(shell, SWT.PUSH);
         wOK.setText(BaseMessages.getString(PKG, "System.Button.OK")); //$NON-NLS-1$
         wCancel = new Button(shell, SWT.PUSH);
         wCancel.setText(BaseMessages.getString(PKG, "System.Button.Cancel")); //$NON-NLS-1$
 
-//        BaseStepDialog.positionBottomButtons( shell, new Button[] { wOK, wCancel }, margin, wValue );
         BaseStepDialog.positionBottomButtons(shell, new Button[] { wOK, wCancel }, margin, wStatusFieldName);
 
         // Add listeners
@@ -533,25 +481,14 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         return stepname;
     }
 
-    // Read data from input (TextFileInputInfo)
     public void getData() {
         wStepname.selectAll();
-//        logError("url: " + urlValue);
-//        logError("url: " + urlValue.toString());
-//        logError("url: " + urlValue.getValueData());
         if (url != null) {
             wUrl.setText(url.getValueData().toString());
-//            wValue.setText( value.toString() + " (" + value.toStringMeta() + ")" ); //$NON-NLS-1$ //$NON-NLS-2$
         }
-//        logError("username: " + userValue);
-//        logError("username: " + userValue.toString());
-//        logError("username: " + userValue.getValueData());
         if (user != null) {
             wUser.setText(user.getValueData().toString());
         }
-//        logError("pass: " + passwordValue);
-//        logError("pass: " + passwordValue.toString());
-//        logError("pass: " + passwordValue.getValueData());
         if (password != null) {
             wPassword.setText(password.getValueData().toString());
         }
@@ -564,7 +501,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         }
 
         if (advanced != null) {
-            wAdvanced.setText(advanced.getValueData().toString());
+            wAdvanced.setSelection((boolean) advanced.getValueData());  // Difference!
         }
 
         if (aliasField != null) {
@@ -586,10 +523,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
     }
 
     private void ok() {
-        stepname = wStepname.getText(); // return value
-//        logBasic("ok clicked url: " + wUrl.getText());
-//        logBasic("ok clicked usr: " + wUser.getText());
-//        logBasic("ok clicked pwd: " + wPassword.getText());
+        stepname = wStepname.getText();
         url.setValueData(wUrl.getText());
         user.setValueData(wUser.getText());
         password.setValueData(wPassword.getText());

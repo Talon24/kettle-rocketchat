@@ -31,31 +31,11 @@ public class RocketchatStep extends BaseStep implements StepInterface {
             return false;
         }
 
-//        for (Object object : r) {
-//            if (object != null) {
-//                logBasic("Foreach loop: " + object.toString());
-//                logBasic("Foreach loop: " + object.getClass().getName());
-//            }
-//        }
-//        logBasic("Foreach loop:      Finished");
-
         if (first) {
             first = false;
             data.outputRowMeta = getInputRowMeta().clone();
-//            logBasic("RowInputMeta: " +  data.outputRowMeta.toStringMeta());
-//            meta.getFields( data.outputRowMeta, getStepname(), null, null, this );
             meta.getFields(data.outputRowMeta, getStepname(), null, null, this, repository, metaStore);
         }
-
-//        for (String str : data.outputRowMeta.getFieldNames()) {
-//            logBasic("RowOutputMeta: " + str);
-//        }
-
-//        Object extraValue = meta.getUrlValue().getValueData();
-//        logError(meta.getChannelField().toString());
-//        logError(meta.getMessageField().toString());
-//        logError("" + data.outputRowMeta.indexOfValue(meta.getAliasField().toString()));
-//        logError(meta.getEmojiField().toString());
         String channel = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getChannelField().toString())], "");
         String message = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getMessageField().toString())], "");
         String alias = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
@@ -99,12 +79,7 @@ public class RocketchatStep extends BaseStep implements StepInterface {
         try {
             meta.startRocketchat(url, user, password);
         } catch (IOException e) {
-//            StringWriter sw = new StringWriter();
-//            e.printStackTrace(new PrintWriter(sw));
-//            String exceptionAsString = sw.toString();
-//            logError(exceptionAsString);
             logError("RocketChat Connection init failed. Bad RocketChat login information!");
-//            logError("Bad RocketChat cretentials: " +  url + ", " + user  + ", " +  password);
             return false;
         }
 

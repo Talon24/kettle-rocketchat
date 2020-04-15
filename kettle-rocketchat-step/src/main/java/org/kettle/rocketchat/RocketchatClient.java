@@ -28,15 +28,8 @@ public class RocketchatClient {
         this.url = url;
         this.user = user;
         this.password = password;
-        try {
-            login();
-            load_contacts();
-//            System.out.println(contacts);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            throw e;
-        }
+        login();
+        load_contacts();
     }
 
     public JSONObject send_message(String receiver, String content) throws MalformedURLException, IOException {
@@ -56,8 +49,6 @@ public class RocketchatClient {
         } else {
             payload.put("avatar", emoji);
         }
-//        System.out.println("Contacts:" );
-//        System.out.println(contacts.toString());
         if (receiver.startsWith("#")) {
             payload.put("channel", receiver);
         } else {
@@ -67,15 +58,11 @@ public class RocketchatClient {
             payload.put("roomId", contacts.get(receiver));
         }
         JSONObject result = post_message(payload);
-//        System.out.println(result.toString(4));
-//        System.out.println("Contacts after send:" );
-//        System.out.println(contacts.toString());
         return result;
     }
 
     private JSONObject post_message(Map<String, String> payload) throws MalformedURLException, IOException {
         JSONObject result = post("chat.postMessage", payload);
-//        System.out.println(result);
         return result;
     }
 
@@ -117,21 +104,6 @@ public class RocketchatClient {
 
     }
 
-//    private void load_contacts() throws MalformedURLException, IOException {
-//
-//        JSONObject channels = get("channels.list");
-//        JSONObject groups = get("groups.list");
-//        for (Object channel : channels.getJSONArray("channels")) {
-//            JSONObject obj = (JSONObject) channel;
-//            contacts.put(obj.getString("name"), obj.getString("_id"));
-//        }
-//        for (Object channel : groups.getJSONArray("groups")) {
-//            JSONObject obj = (JSONObject) channel;
-//            contacts.put(obj.getString("name"), obj.getString("_id"));
-//        }
-//
-//    }
-
     private JSONObject get(String endpoint) throws MalformedURLException, IOException {
         URLConnection connection = new URL(url + endpoint).openConnection();
         connection.setRequestProperty("X-Auth-Token", headers.get("X-Auth-Token"));
@@ -143,38 +115,17 @@ public class RocketchatClient {
         InputStream response = connection.getInputStream();
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
-//            System.out.println(responseBody);
             JSONObject json = new JSONObject(responseBody);
             return json;
         }
     }
-
-//    private JSONObject get(String endpoint, String params) throws MalformedURLException, IOException {
-//        URLConnection connection = new URL(url + endpoint + "?" + params).openConnection();
-//        connection.setRequestProperty("X-Auth-Token", headers.get("X-Auth-Token"));
-//        connection.setRequestProperty("X-User-Id", headers.get("X-User-Id"));
-//        connection.setRequestProperty("Accept-Charset", charset);
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-//
-//
-//        InputStream response = connection.getInputStream();
-//        try (Scanner scanner = new Scanner(response)) {
-//            String responseBody = scanner.useDelimiter("\\A").next();
-//            JSONObject json = new JSONObject(responseBody);
-//            return json;
-//        }
-//    }
 
     private JSONObject post(String endpoint, Map<String, String> payload) throws MalformedURLException, IOException {
         URLConnection connection = new URL(url + endpoint).openConnection();
         connection.setRequestProperty("X-Auth-Token", headers.get("X-Auth-Token"));
         connection.setRequestProperty("X-User-Id", headers.get("X-User-Id"));
         connection.setRequestProperty("Accept-Charset", charset);
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
         connection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
-//        for (Map.Entry<String, String> element : payload.entrySet()) {
-//            connection.setRequestProperty(element.getKey(), element.getValue());
-//        }
         connection.setDoOutput(true); // Triggers POST.
         String payload_string = new JSONObject(payload).toString();
         try (OutputStream os = connection.getOutputStream()) {
