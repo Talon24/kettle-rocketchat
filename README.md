@@ -16,7 +16,7 @@ The step has the following options:
 | Rocketchat URL           | The url of your rocketchat server. <br>Automatically appends api extension if not supplied. <br>Supports variable substitution. |
 | Rocketchat username      | Username of the Account to send messages with. Ideally a bot account. <br>Supports variable substitution. |
 | Rocketchat password      | Password associated with the Account.           <br>Supports variable substitution. |
-| Target field             | Field containing the name of the channel or recipient. <br>Can send to public or private chats ("Channel" or "Group"). These have to be preceded with the "#" character, e.g. "#General". If the sign is not present, a private message will be sent to the given name. <br>Discussions are not supported.           |
+| Target field             | Field containing the name of the channel or recipient. <br>Can send to public or private chats ("Channel" or "Group"). These have to be preceded with the "#" character, e.g. "#general". If the sign is not present, a private message will be sent to the given name. <br>Discussions are not supported.           |
 | Message field            | Field containing the message.            |
 | Custom alias / avatar    | Wheter the following two options should be accessed. These are only accepted by the server if the sender account holds the `bot`-role.            |
 | Alias field              | Optional. <br>Field containing the alternative name of the sender. This will appear to the user as "**Custom Name** @real_bot_name". <br>Match to an empty string to omit.            |
