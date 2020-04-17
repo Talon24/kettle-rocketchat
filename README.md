@@ -1,6 +1,11 @@
 # kettle-rocketchat
 Send messages from PDI to a rocketchat server.
 
+## Installation
+Download the zip file from the releases page and extract the `rocketchat-plugin`-folder to `plugins` in your kettle home directory. The icon will be visible if you don't change the names. 
+
+It is tested on PDI version `8.0.0.0-28`.
+
 ## Usage
 
 The Rocketchat step is available for transformations under the Utility category.
