@@ -293,6 +293,7 @@ public class RocketchatStepDialog extends BaseStepDialog implements StepDialogIn
         fdlAdvanced.top = new FormAttachment(wMessageField, 1 * margin);
         wlAdvanced.setLayoutData(fdlAdvanced);
         wAdvanced = new Button(shell, SWT.CHECK);
+        wAdvanced.setToolTipText(BaseMessages.getString(PKG, "RocketChatPluginDialog.Advanced.Tooltip"));
         props.setLook(wAdvanced);
         fdAdvanced = new FormData();
         fdAdvanced.left = new FormAttachment(middle, 0);
