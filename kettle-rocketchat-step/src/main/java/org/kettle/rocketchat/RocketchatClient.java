@@ -34,9 +34,10 @@ public class RocketchatClient {
 
     public JSONObject send_message(String receiver, String content) throws MalformedURLException, IOException {
         HashMap<String, String> payload = new HashMap<String, String>();
-        payload.put("roomId", contacts.get(receiver));
-        payload.put("text", content);
-        return post_message(payload);
+//        payload.put("roomId", contacts.get(receiver));
+//        payload.put("text", content);
+//        return post_message(payload);
+        return send_message(receiver, content, "", "");
     }
 
     public JSONObject send_message(String receiver, String content, String alias, String emoji)

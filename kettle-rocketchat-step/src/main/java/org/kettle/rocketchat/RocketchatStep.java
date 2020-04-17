@@ -38,11 +38,11 @@ public class RocketchatStep extends BaseStep implements StepInterface {
         }
         String channel = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getChannelField().toString())], "");
         String message = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getMessageField().toString())], "");
-        String alias = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
-        String emoji = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getEmojiField().toString())], "");
 
         boolean success;
         if ((boolean) meta.getAdvanced().getValueData()) {
+            String alias = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getAliasField().toString())], "");
+            String emoji = Objects.toString(r[data.outputRowMeta.indexOfValue(meta.getEmojiField().toString())], "");
             success = meta.sendRocketchat(channel, message, alias, emoji);
         } else {
             success = meta.sendRocketchat(channel, message);

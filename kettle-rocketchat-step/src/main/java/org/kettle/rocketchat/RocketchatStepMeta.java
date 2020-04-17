@@ -170,36 +170,19 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         String retval = "";
 
         retval += "    <values>" + Const.CR;
-        if (url != null) {
             retval += url.getXML();
             retval += user.getXML();
             retval += password_.getXML();
             retval += channelField.getXML();
             retval += messageField.getXML();
             retval += advanced.getXML();
-            retval += aliasField.getXML();
-            retval += emojiField.getXML();
+            if ((boolean) advanced.getValueData()) {
+                retval += aliasField.getXML();
+                retval += emojiField.getXML();
+            }
             retval += statusFieldName.getXML();
-        }
         retval += "      </values>" + Const.CR;
 
-        return retval;
-    }
-
-    @Override
-    public void getFields(RowMetaInterface r, String origin, RowMetaInterface[] info, StepMeta nextStep,
-            VariableSpace space, Repository repository, IMetaStore metaStore) {
-        ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
-        status.getValueMeta().setName(statusFieldName.getValueData().toString());
-        ValueMetaInterface v = status.getValueMeta();
-        v.setOrigin(origin);
-        r.addValueMeta(v);
-//      }
-    }
-
-    @Override
-    public Object clone() {
-        Object retval = super.clone();
         return retval;
     }
 
@@ -257,6 +240,24 @@ public class RocketchatStepMeta extends BaseStepMeta implements StepMetaInterfac
         if (aliasField.getValueMeta().getName() == null) aliasField.getValueMeta().setName("aliasField");
         if (emojiField.getValueMeta().getName() == null) emojiField.getValueMeta().setName("emojiField");
         if (statusFieldName.getValueMeta().getName() == null) statusFieldName.getValueMeta().setName("statusFieldName");
+    }
+    
+
+    @Override
+    public void getFields(RowMetaInterface r, String origin, RowMetaInterface[] info, StepMeta nextStep,
+            VariableSpace space, Repository repository, IMetaStore metaStore) {
+        ValueMetaAndData status = new ValueMetaAndData(new ValueMetaBoolean(), null);
+        status.getValueMeta().setName(statusFieldName.getValueData().toString());
+        ValueMetaInterface v = status.getValueMeta();
+        v.setOrigin(origin);
+        r.addValueMeta(v);
+//      }
+    }
+
+    @Override
+    public Object clone() {
+        Object retval = super.clone();
+        return retval;
     }
 
     @Override
